@@ -8,7 +8,10 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -58,11 +61,11 @@ public class RecommendationController extends ApiController {
         @ApiParam("requesterEmail") @RequestParam String requesterEmail,
         @ApiParam("professorEmail") @RequestParam String professorEmail,
         @ApiParam("explanation") @RequestParam String explanation,
-        @ApiParam("dateRequested") @RequestParam LocalDateTime dateRequested,
-        @ApiParam("dateNeeded") @RequestParam LocalDateTime dateNeeded,
+        @ApiParam("date (in iso format, e.g. YYYY-mm-ddTHH:MM:SS; see https://en.wikipedia.org/wiki/ISO_8601)") @RequestParam("dateRequested") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateRequested,
+        @ApiParam("date (in iso format, e.g. YYYY-mm-ddTHH:MM:SS; see https://en.wikipedia.org/wiki/ISO_8601)") @RequestParam("dateNeeded") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateNeeded,
         @ApiParam("done") @RequestParam boolean done
         )
-        {
+        throws JsonProcessingException{
 
         Recommendation recommendations = new Recommendation();
         recommendations.setRequesterEmail(requesterEmail);
