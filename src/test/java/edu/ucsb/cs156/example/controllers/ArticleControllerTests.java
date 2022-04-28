@@ -33,9 +33,12 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.io.UnsupportedEncodingException;
+import lombok.extern.slf4j.Slf4j;
 
 @WebMvcTest(controllers = ArticleController.class)
 @Import(TestConfig.class)
+@Slf4j
 
 public class ArticleControllerTests extends ControllerTestCase {
         private String encodeValue(String value) throws UnsupportedEncodingException{
@@ -183,8 +186,8 @@ public class ArticleControllerTests extends ControllerTestCase {
         public void an_admin_user_can_post_a_new_article() throws Exception {
                 // arrange
 
-                LocalDateTime ldt1 = LocalDateTime.parse("2022-04-20");
-                String u = "https://twitter.com/maciejwalkowiak/status/1511736828369719300?t=gGXpmBH4y4eY9OBSUInZEg&s=09";
+                LocalDateTime ldt1 = LocalDateTime.parse("2022-04-20T00:00:00");
+                String u = "https://dev.to/katieraby/using-testing-playground-with-react-testing-library-26j7";
                 Article article1 = Article.builder()
                         .title("Handy Spring Utility Classes")
                         .url(u)
@@ -194,12 +197,13 @@ public class ArticleControllerTests extends ControllerTestCase {
                         .build();
 
                 when(articleRepository.save(eq(article1))).thenReturn(article1);
-                String uri = "/api/Article/post?title=%s&url=%s&explanation=%s&email=%s&dateAdded=%s"
-                .formatted(encodeValue("Handy Spring Utility Classes"),
-                encodeValue("https://twitter.com/maciejwalkowiak/status/1511736828369719300?t=gGXpmBH4y4eY9OBSUInZEg&s=09"),
-                encodeValue("A lot of really useful classes are built into Spring"),
-                encodeValue("phtcon@ucsb.edu"),
-                encodeValue("2022-04-20"));
+                String uri = "/api/Article/post?title=Handy Spring Utility Classes&url=https://dev.to/katieraby/using-testing-playground-with-react-testing-library-26j7&explanation=A lot of really useful classes are built into Spring&email=phtcon@ucsb.edu&dateAdded=2022-04-20T00:00:00";
+                // .formatted(encodeValue("Handy Spring Utility Classes"),
+                // encodeValue("https://twitter.com/maciejwalkowiak/status/1511736828369719300?t=gGXpmBH4y4eY9OBSUInZEg&s=09"),
+                // encodeValue("A lot of really useful classes are built into Spring"),
+                // encodeValue("phtcon@ucsb.edu")
+                // );
+                // log.info(uri);
 
                 // act
                 // fix the link
