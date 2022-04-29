@@ -54,7 +54,7 @@ public class UCSBDiningCommonsMenuController extends ApiController {
         return ucsbDiningCommonsMenu;
     }
 
-    @ApiOperation(value = "Create a new dining commons menu item")
+    @ApiOperation(value = "Create a new dining commons menu")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/post")
     public UCSBDiningCommonsMenu postUCSBDiningCommonsMenu(
@@ -64,7 +64,7 @@ public class UCSBDiningCommonsMenuController extends ApiController {
             throws JsonProcessingException {
 
 
-        //log.info("localDateTime={}", localDateTime);
+        log.info("name={}", name);
 
         UCSBDiningCommonsMenu ucsbDiningCommonsMenu = new UCSBDiningCommonsMenu();
         ucsbDiningCommonsMenu.setDiningCommonsCode(diningCommonsCode);
