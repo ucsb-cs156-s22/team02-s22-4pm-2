@@ -64,7 +64,7 @@ public class UCSBDiningCommonsMenuController extends ApiController {
             throws JsonProcessingException {
 
 
-        log.info("name={}", name);
+        //log.info("name={}", name);
 
         UCSBDiningCommonsMenu ucsbDiningCommonsMenu = new UCSBDiningCommonsMenu();
         ucsbDiningCommonsMenu.setDiningCommonsCode(diningCommonsCode);
