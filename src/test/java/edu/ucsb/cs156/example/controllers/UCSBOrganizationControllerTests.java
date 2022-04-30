@@ -171,14 +171,14 @@ public class UCSBOrganizationControllerTests extends ControllerTestCase {
                         .orgCode("KRC")
                         .orgTranslationShort("KOREAN RADIO CL")
                         .orgTranslation("KOREAN RADIO CLUB")
-                        .inactive(false)
+                        .inactive(true)
                         .build();
 
             when(ucsbOrganizationRepository.save(eq(KRC))).thenReturn(KRC);
 
             // act
             MvcResult response = mockMvc.perform(
-                            post("/api/ucsborganization/post?orgCode=KRC&orgTranslationShort=KOREAN RADIO CL&orgTranslation=KOREAN RADIO CLUB&inactive=false")
+                            post("/api/ucsborganization/post?orgCode=KRC&orgTranslationShort=KOREAN RADIO CL&orgTranslation=KOREAN RADIO CLUB&inactive=true")
                                             .with(csrf()))
                             .andExpect(status().isOk()).andReturn();
 
@@ -249,9 +249,9 @@ public class UCSBOrganizationControllerTests extends ControllerTestCase {
 
             UCSBOrganization ZPREdited = UCSBOrganization.builder()
             .orgCode("ZPR")
-            .orgTranslationShort("ZETA PHI RHO ")
+            .orgTranslationShort("ZETA PHI")
             .orgTranslation("ZETA PHI RHO Org")
-            .inactive(false)
+            .inactive(true)
             .build();
 
             String requestBody = mapper.writeValueAsString(ZPREdited);
