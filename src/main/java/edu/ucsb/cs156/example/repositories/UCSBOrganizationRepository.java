@@ -5,9 +5,9 @@ import edu.ucsb.cs156.example.entities.UCSBOrganization;
 import org.springframework.beans.propertyeditors.StringArrayPropertyEditor;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-
+import java.util.Optional;
 
 @Repository
-public interface UCSBOrganization extends CrudRepository<UCSBOrganization, String> {
- 
+public interface UCSBOrganizationRepository extends CrudRepository<UCSBOrganization, String> {
+
 }
