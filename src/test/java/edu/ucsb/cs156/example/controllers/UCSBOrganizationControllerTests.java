@@ -193,26 +193,26 @@ public class UCSBOrganizationControllerTests extends ControllerTestCase {
     @Test
     public void admin_can_delete_an_organization() throws Exception {
             // arrange
-            UCSBOrganization OSLI = UCSBOrganization.builder()
-                        .orgCode("OSLI")
-                        .orgTranslationShort("STUDENT LIFE")
-                        .orgTranslation("OFFICE OF STUDENT LIFE")
-                        .inactive(false)
-                        .build();
-            when(ucsbOrganizationRepository.findById(eq("OSLI"))).thenReturn(Optional.of(OSLI));
+            UCSBOrganization SKY = UCSBOrganization.builder()
+                            .orgCode("SKY")
+                            .orgTranslationShort("SKYDIVING CLUB")
+                            .orgTranslation("SKYDIVING CLUB AT UCSB")
+                            .inactive(false)
+                            .build();
+            when(ucsbOrganizationRepository.findById(eq("SKY"))).thenReturn(Optional.of(SKY));
 
             // act
             MvcResult response = mockMvc.perform(
-                            delete("/api/ucsborganization/?orgCode=OSLI")
+                            delete("/api/ucsborganization/post?orgCode=SKY&orgTranslationShort=SKYDIVING CLUB&orgTranslation=SKYDIVING CLUB AT UCSB&inactive=false")
                                             .with(csrf()))
                             .andExpect(status().isOk()).andReturn();
 
             // assert
-            verify(ucsbOrganizationRepository, times(1)).findById("OSLI");
+            verify(ucsbOrganizationRepository, times(1)).findById("SKY");
             verify(ucsbOrganizationRepository, times(1)).delete(any());
 
             Map<String, Object> json = responseToJson(response);
-            assertEquals("UCSBOrganization with id OSLI deleted", json.get("message"));
+            assertEquals("UCSBOrganization with id SKY deleted", json.get("message"));
     }
 
     @WithMockUser(roles = { "ADMIN", "USER" })
