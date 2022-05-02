@@ -81,6 +81,7 @@ On localhost:
 * You can access the database console via a special route, <http://localhost:8080/h2-console>
 * For more info, see [docs/h2-database.md](/docs/h2-database.md)
 
+
 On Heroku:
 * The SQL database is a postgres database provisioned automatically by Heroku
 * You can reset it with `heroku pg:reset --app app-name-goes-here`
