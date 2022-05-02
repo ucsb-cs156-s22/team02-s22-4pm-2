@@ -83,6 +83,7 @@ public UCSBOrganization getById(
         return genericMessage("UCSBOrganization with id %s deleted".formatted(orgCode));
     }
 
+    
     @ApiOperation(value = "Update a single organization")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("")
