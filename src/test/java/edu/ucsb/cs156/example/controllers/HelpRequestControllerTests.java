@@ -174,7 +174,7 @@ public class HelpRequestControllerTests extends ControllerTestCase {
                                 .tableOrBreakoutRoom("table")
                                 .requestTime(ldt1)
                                 .explanation("Defamation")
-                                .solved(false)
+                                .solved(true)
                                 .build();
 
                 LocalDateTime ldt2 = LocalDateTime.parse("2022-03-11T00:00:00");
@@ -218,14 +218,14 @@ public class HelpRequestControllerTests extends ControllerTestCase {
                                 .tableOrBreakoutRoom("table")
                                 .requestTime(ldt1)
                                 .explanation("need food")
-                                .solved(false)
+                                .solved(true)
                                 .build();
 
                 when(helpRequestRepository.save(eq(helpRequest1))).thenReturn(helpRequest1);
 
                 // act
                 MvcResult response = mockMvc.perform(
-                                post("/api/helprequest/post?requesterEmail=Son Goku&teamId=4&tableOrBreakoutRoom=table&requestTime=2022-01-03T00:00:00&explanation=need food&solved=false")
+                                post("/api/helprequest/post?requesterEmail=Son Goku&teamId=4&tableOrBreakoutRoom=table&requestTime=2022-01-03T00:00:00&explanation=need food&solved=true")
                                                 .with(csrf()))
                                 .andExpect(status().isOk()).andReturn();
 
@@ -302,7 +302,7 @@ public class HelpRequestControllerTests extends ControllerTestCase {
                                 .tableOrBreakoutRoom("table")
                                 .requestTime(ldt1)
                                 .explanation("Defamation")
-                                .solved(false)
+                                .solved(true)
                                 .build();
 
                 HelpRequest helpRequestEdited = HelpRequest.builder()
