@@ -47,7 +47,7 @@ public class HelpRequestController extends ApiController {
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("")
     public HelpRequest getById(
-            @ApiParam("id") @RequestParam Long id) {
+            @ApiParam("Help Request ID") @RequestParam Long id) {
         HelpRequest helpRequest = helpRequestRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(HelpRequest.class, id));
 
@@ -58,11 +58,11 @@ public class HelpRequestController extends ApiController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/post")
     public HelpRequest postHelpRequest(
-            @ApiParam("requesterEmail") @RequestParam String requesterEmail,
-            @ApiParam("teamId") @RequestParam String teamId,
-            @ApiParam("tableOrBreakoutRoom") @RequestParam String tableOrBreakoutRoom,
+            @ApiParam("email of the requester") @RequestParam String requesterEmail,
+            @ApiParam("team-id") @RequestParam String teamId,
+            @ApiParam("table or breakout room?") @RequestParam String tableOrBreakoutRoom,
             @ApiParam("date (in iso format, e.g. YYYY-mm-ddTHH:MM:SS; see https://en.wikipedia.org/wiki/ISO_8601)") @RequestParam("requestTime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime requestTime,
-            @ApiParam("explanation") @RequestParam String explanation,
+            @ApiParam("detailed explanation") @RequestParam String explanation,
             @ApiParam("solved") @RequestParam boolean solved)
             throws JsonProcessingException {
 
