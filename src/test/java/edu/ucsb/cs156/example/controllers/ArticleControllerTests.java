@@ -87,6 +87,31 @@ public class ArticleControllerTests extends ControllerTestCase {
                 mockMvc.perform(post("/api/Article/post"))
                                 .andExpect(status().is(403)); // only admins can post
         }
+        @Test
+        public void logged_out_users_cannot_put() throws Exception {
+                mockMvc.perform(post("/api/article/put"))
+                                .andExpect(status().is(403)); // logged out users cannot put 
+        }
+
+        @WithMockUser(roles = { "USER" })
+        @Test
+        public void logged_in_regular_users_can_put() throws Exception {
+                mockMvc.perform(post("/api/article/put"))
+                                .andExpect(status().is(403)); // logged in users cannot put
+        }  
+
+        @Test
+        public void logged_out_users_cannot_delete() throws Exception {
+                mockMvc.perform(post("/api/article/delete"))
+                                .andExpect(status().is(403)); // logged out users cannot delete 
+        }
+
+        @WithMockUser(roles = { "USER" })
+        @Test
+        public void logged_in_regular_users_can_delete() throws Exception {
+                mockMvc.perform(post("/api/article/delete"))
+                                .andExpect(status().is(403)); // logged in users cannot delete
+        }
 
         // // Tests with mocks for database actions
 
@@ -281,16 +306,16 @@ public class ArticleControllerTests extends ControllerTestCase {
 
                 Article articleOrig = Article.builder()
                                 .title("Handy Spring Utility Classes")
-                                .url("https://twitter.com/maciejwalkowiak/status/1511736828369719300?t=gGXpmBH4y4eY9OBSUInZEg&s=09")
+                                .url("/api/Article?id=1")
                                 .explanation("A lot of really useful classes are built into Spring")
                                 .email("phtcon@ucsb.edu")
                                 .dateAdded(ldt1)
                                 .build();
 
                 Article articleEdited = Article.builder()
-                                .title("Handy Spring Utility Classes")
-                                .url("https://twitter.com/maciejwalkowiak/status/1511736828369719300?t=gGXpmBH4y4eY9OBSUInZEg&s=09")
-                                .explanation("A lot of really useful classes are built into Spring")
+                                .title("Article 2")
+                                .url("/api/Article?id=2")
+                                .explanation("check if this gets updated")
                                 .email("shu-hsien@ucsb.edu")
                                 .dateAdded(ldt2)
                                 .build();
