@@ -150,9 +150,9 @@ public class MenuItemReviewControllerTests extends ControllerTestCase {
             MenuItemReview menuItemReview2 = MenuItemReview.builder()
                 .itemId(2L)
                 .reviewerEmail("zhengyan@ucsb.edu")
-                .stars(5)
+                .stars(0)
                 .dateReviewed(ldt2)
-                .comments("Tasty!")
+                .comments("Bad!")
                 .build();
 
             ArrayList<MenuItemReview> expectedReviews = new ArrayList<>();
@@ -271,7 +271,7 @@ public class MenuItemReviewControllerTests extends ControllerTestCase {
 
             MenuItemReview menuItemReviewEdited = MenuItemReview.builder()
                 .itemId(2L)
-                .reviewerEmail("zhengyan@ucsb.edu")
+                .reviewerEmail("1832062075@qq.com")
                 .stars(5)
                 .dateReviewed(ldt2)
                 .comments("Tasty!")
