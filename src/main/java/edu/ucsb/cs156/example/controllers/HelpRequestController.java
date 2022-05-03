@@ -72,43 +72,49 @@ public class HelpRequestController extends ApiController {
         log.info("requestTime={}", requestTime);
 
         HelpRequest helpRequest = new HelpRequest();
-        HelpRequest.setRequesterEmail(requesterEmail);
-        ucsbDate.setName(name);
-        ucsbDate.setLocalDateTime(localDateTime);
+        helpRequest.setRequesterEmail(requesterEmail);
+        helpRequest.setTeamId(teamId);
+        helpRequest.setTableOrBreakoutRoom(tableOrBreakoutRoom);
+        helpRequest.setRequestTime(requestTime);
+        helpRequest.setExplanation(explanation);
+        helpRequest.setSolved(solved);
+      
+        HelpRequest savedHelpRequest = helpRequestRepository.save(helpRequest);
 
-        UCSBDate savedUcsbDate = ucsbDateRepository.save(ucsbDate);
-
-        return savedUcsbDate;
+        return savedHelpRequest;
     }
 
-    @ApiOperation(value = "Delete a UCSBDate")
+    @ApiOperation(value = "Delete a help request")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("")
-    public Object deleteUCSBDate(
+    public Object deleteHelpRequest(
             @ApiParam("id") @RequestParam Long id) {
-        UCSBDate ucsbDate = ucsbDateRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(UCSBDate.class, id));
+        HelpRequest helpRequest = helpRequestRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(HelpRequest.class, id));
 
-        ucsbDateRepository.delete(ucsbDate);
-        return genericMessage("UCSBDate with id %s deleted".formatted(id));
+        helpRequestRepository.delete(helpRequest);
+        return genericMessage("Help Request with id %s deleted".formatted(id));
     }
 
-    @ApiOperation(value = "Update a single date")
+    @ApiOperation(value = "Update a single help request")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("")
-    public UCSBDate updateUCSBDate(
+    public HelpRequest updateHelpRequest(
             @ApiParam("id") @RequestParam Long id,
-            @RequestBody @Valid UCSBDate incoming) {
+            @RequestBody @Valid HelpRequest incoming) {
 
-        UCSBDate ucsbDate = ucsbDateRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(UCSBDate.class, id));
+        HelpRequest helpRequest = helpRequestRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(HelpRequest.class, id));
 
-        ucsbDate.setQuarterYYYYQ(incoming.getQuarterYYYYQ());
-        ucsbDate.setName(incoming.getName());
-        ucsbDate.setLocalDateTime(incoming.getLocalDateTime());
+                helpRequest.setRequesterEmail(incoming.getRequesterEmail());
+                helpRequest.setTeamId(incoming.getTeamId());
+                helpRequest.setTableOrBreakoutRoom(incoming.getTableOrBreakoutRoom());
+                helpRequest.setRequestTime(incoming.getRequestTime());
+                helpRequest.setExplanation(incoming.getExplanation());
+                helpRequest.setSolved(incoming.getSolved());
 
-        ucsbDateRepository.save(ucsbDate);
+        helpRequestRepository.save(helpRequest);
 
-        return ucsbDate;
+        return helpRequest;
     }
 }
