@@ -48,7 +48,7 @@ public class RecommendationController extends ApiController {
     @GetMapping("")
     public Recommendation getById(
             @ApiParam("id") @RequestParam Long id) {
-        Recommendation recommendations = recommendationRepository.findById(1L)
+        Recommendation recommendations = recommendationRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(Recommendation.class, id));
 
         return recommendations;
